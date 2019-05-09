@@ -1,19 +1,12 @@
 import java.util.LinkedList;
 import java.util.Queue;
-
-/**
- *  * 二叉树的深度优先遍历和广度优先遍历
- *  * @author Fantasy
- *  * @version 1.0 2016/10/05 - 2016/10/07
- *  
- */
 public class BinaryTreeTraverseTest {
     public static void main(String[] args) {
         BinarySortTree<Integer> tree = new BinarySortTree<Integer>();
         tree.insertNode(35);
         tree.insertNode(20);
         tree.insertNode(15);
-        tree.insertNode(16);
+        tree.insertNode(15);
         tree.insertNode(29);
         tree.insertNode(28);
         tree.insertNode(30);
@@ -43,33 +36,27 @@ public class BinaryTreeTraverseTest {
         tree.breadthFirstTraverse(tree.getRoot());
     }
 }
-
 /**
- *  * 结点
- *  
+ * 结点
  */
 class Node<E extends Comparable<E>> {
     E value;
     Node<E> left;
     Node<E> right;
-
     Node(E value) {
         this.value = value;
         left = null;
         right = null;
     }
 }
-
 /**
- *  * 使用一个先序序列构建一棵二叉排序树（又称二叉查找树）
- *  
+ * 使用一个先序序列构建一棵二叉排序树（又称二叉查找树）
  */
 class BinarySortTree<E extends Comparable<E>> {
     private Node<E> root;
     BinarySortTree() {
         root = null;
     }
-
     public void insertNode(E value) {
         if (root == null) {
             root = new Node<E>(value);
@@ -92,18 +79,13 @@ class BinarySortTree<E extends Comparable<E>> {
             }
         }
     }
-
-
-    public Node<E> getRoot() {
+    public Node<E> getRoot(){
         return root;
     }
-
     /**
-     *  * 先序遍历二叉树（递归）
-     *  * @param node
-     *  
+     * 先序遍历二叉树（递归）
+     * @param node
      */
-
     public void preOrderTraverse(Node<E> node) {
         System.out.print(node.value + " ");
         if (node.left != null)
@@ -111,14 +93,10 @@ class BinarySortTree<E extends Comparable<E>> {
         if (node.right != null)
             preOrderTraverse(node.right);
     }
-
     /**
-     *  * 中序遍历二叉树（递归）
-     *  * @param node
-     *  
+     * 中序遍历二叉树（递归）
+     * @param node
      */
-
-
     public void inOrderTraverse(Node<E> node) {
         if (node.left != null)
             inOrderTraverse(node.left);
@@ -126,14 +104,10 @@ class BinarySortTree<E extends Comparable<E>> {
         if (node.right != null)
             inOrderTraverse(node.right);
     }
-
     /**
-     *  * 后序遍历二叉树（递归）
-     *  * @param node
-     *  
+     * 后序遍历二叉树（递归）
+     * @param node
      */
-
-
     public void postOrderTraverse(Node<E> node) {
         if (node.left != null)
             postOrderTraverse(node.left);
@@ -141,14 +115,10 @@ class BinarySortTree<E extends Comparable<E>> {
             postOrderTraverse(node.right);
         System.out.print(node.value + " ");
     }
-
     /**
-     *  * 先序遍历二叉树（非递归）
-     *  * @param root
-     *  
+     * 先序遍历二叉树（非递归）
+     * @param root
      */
-
-
     public void preOrderTraverseNoRecursion(Node<E> root) {
         LinkedList<Node<E>> stack = new LinkedList<Node<E>>();
         Node<E> currentNode = null;
@@ -162,19 +132,15 @@ class BinarySortTree<E extends Comparable<E>> {
                 stack.push(currentNode.left);
         }
     }
-
     /**
-     *  * 中序遍历二叉树（非递归）
-     *  * @param root
-     *  
+     * 中序遍历二叉树（非递归）
+     * @param root
      */
-
-
     public void inOrderTraverseNoRecursion(Node<E> root) {
         LinkedList<Node<E>> stack = new LinkedList<Node<E>>();
         Node<E> currentNode = root;
         while (currentNode != null || !stack.isEmpty()) {
-// 一直循环到二叉排序树最左端的叶子结点（currentNode是null）
+            // 一直循环到二叉排序树最左端的叶子结点（currentNode是null）
             while (currentNode != null) {
                 stack.push(currentNode);
                 currentNode = currentNode.left;
@@ -184,26 +150,22 @@ class BinarySortTree<E extends Comparable<E>> {
             currentNode = currentNode.right;
         }
     }
-
     /**
-     *  * 后序遍历二叉树（非递归）
-     *  * @param root
-     *  
+     * 后序遍历二叉树（非递归）
+     * @param root
      */
-
-
     public void postOrderTraverseNoRecursion(Node<E> root) {
         LinkedList<Node<E>> stack = new LinkedList<Node<E>>();
         Node<E> currentNode = root;
         Node<E> rightNode = null;
         while (currentNode != null || !stack.isEmpty()) {
-// 一直循环到二叉排序树最左端的叶子结点（currentNode是null）
+            // 一直循环到二叉排序树最左端的叶子结点（currentNode是null）
             while (currentNode != null) {
                 stack.push(currentNode);
                 currentNode = currentNode.left;
             }
             currentNode = stack.pop();
-// 当前结点没有右结点或上一个结点（已经输出的结点）是当前结点的右结点，则输出当前结点
+            // 当前结点没有右结点或上一个结点（已经输出的结点）是当前结点的右结点，则输出当前结点
             while (currentNode.right == null || currentNode.right == rightNode) {
                 System.out.print(currentNode.value + " ");
                 rightNode = currentNode;
@@ -216,14 +178,10 @@ class BinarySortTree<E extends Comparable<E>> {
             currentNode = currentNode.right;
         }
     }
-
     /**
-     *  * 广度优先遍历二叉树，又称层次遍历二叉树
-     *  * @param node
-     *  
+     * 广度优先遍历二叉树，又称层次遍历二叉树
+     * @param
      */
-
-
     public void breadthFirstTraverse(Node<E> root) {
         Queue<Node<E>> queue = new LinkedList<Node<E>>();
         Node<E> currentNode = null;

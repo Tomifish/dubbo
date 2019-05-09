@@ -20,6 +20,6 @@ public class DemoController {
     @RequestMapping("/test")
     public String test(){
         logger.info("9093消费者服务调用开始");
-        return demoService.getDemoString();
+        return demoService.getDemoString()+"9093";
     }
 }
